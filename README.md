@@ -8,7 +8,6 @@
 
 - **Graph-Based Knowledge** — Store and relate any type of information using nodes and relationships
 - **State Machine Lifecycles** — Define custom lifecycles for your content with guards and transitions
-- **Real-Time Collaboration** — Built-in Yjs support for live collaborative editing
 - **Human-AI Parity** — Same APIs for human users and AI agents
 - **Extensible Architecture** — Plugin-based design for customization
 
