@@ -1,0 +1,31 @@
+{
+  "name": "@context-engine/auth",
+  "version": "0.1.0",
+  "description": "Authentication and authorization providers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "clean": "rm -rf dist"
+  },
+  "files": ["dist"],
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "@context-engine/core": "workspace:*"
+  }
+}
+
