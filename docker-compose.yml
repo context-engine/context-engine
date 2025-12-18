@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # Dgraph Zero (Coordinator)
+  zero:
+    image: dgraph/dgraph:latest
+    container_name: context-engine-zero
+    ports:
+      - "5080:5080"
+      - "6080:6080"
+    command: dgraph zero --my=zero:5080
+    networks:
+      - context-engine
+    restart: unless-stopped
+
+  # Dgraph Alpha (Data)
+  alpha:
+    image: dgraph/dgraph:latest
+    container_name: context-engine-alpha
+    ports:
+      - "8080:8080"
+      - "9080:9080"
+    volumes:
+      - ./data/dgraph:/dgraph
+    command: dgraph alpha --my=alpha:7080 --zero=zero:5080
+    depends_on:
+      - zero
+    networks:
+      - context-engine
+    restart: unless-stopped
+
+  # Redis (Cache/Queue/Pub-Sub)
+  redis:
+    image: redis:7-alpine
+    container_name: context-engine-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - context-engine
+    restart: unless-stopped
+
+  # Context Engine Server
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    container_name: context-engine-server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DGRAPH_HOST=alpha:9080
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - USER_ID=default-user
+      - USER_EMAIL=user@example.com
+    depends_on:
+      - alpha
+      - redis
+    networks:
+      - context-engine
+    restart: unless-stopped
+
+  # Context Engine Web (Optional - for production)
+  # web:
+  #   build:
+  #     context: .
+  #     dockerfile: apps/web/Dockerfile
+  #   container_name: context-engine-web
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - context-engine
+  #   restart: unless-stopped
+
+networks:
+  context-engine:
+    driver: bridge
+
+# Volumes are now using bind mounts (./data/*) for easier access
+# To use named volumes instead, uncomment below and update volume paths above:
+# volumes:
+#   dgraph_data:
+#   redis_data:
+
