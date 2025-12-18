@@ -11,6 +11,16 @@
     "lint": "eslint src",
     "test": "vitest"
   },
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "@context-engine/core": "workspace:*",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.1.2",
+    "vite": "7.3.0"
+  }
 }
-
