@@ -2,7 +2,7 @@
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 
-**Context Engine** is an open-source platform for building context-aware knowledge systems. It provides a graph-based foundation for managing interconnected nodes, workflows, and lifecycles with real-time collaboration support.
+**Context Engine** is an open-source platform for building context-aware knowledge systems. It provides a graph-based foundation for managing interconnected nodes, workflows, and user interfaces.
 
 ## ✨ Features
 
